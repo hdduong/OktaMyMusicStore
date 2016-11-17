@@ -20,16 +20,17 @@ namespace MyMusic1.Controllers
 
         public ActionResult Browse(string genre)
         {
-            var genreModel = _storeDB.Genres.Include("Albums").Single(x => x.Name.ToLower().Equals(genre.ToLower()));
             // generating follwing sql 
             //LEFT OUTER JOIN [dbo].[Albums] AS [Extent2] ON [Limit1].[GenreId] = [Extent2].[GenreId]
+            var genreModel = _storeDB.Genres.Include("Albums").Single(x => x.Name.ToLower().Equals(genre.ToLower()));
+            
             return View(genreModel);
         }
     
 
         public ActionResult Details(int id)
         {
-            var album = new Album { Title = "Album " + id };
+            var album = _storeDB.Albums.Find(id);
             return View(album);
         }
     }
